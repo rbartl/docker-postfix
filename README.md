@@ -17,3 +17,5 @@ If you are extending this image, you can add two scripts which will be run at a 
  * `/etc/service/postfix/run.config` – to prepare any custom configuration, before anything else is run
  * `/etc/service/postfix/run.initialization` – will be run after the container is initialized, but before the
    Postfix daemon is run
+
+supply RELAYHOST, RELAYUSER, RELAYPASS via environment to enable relay functionality
