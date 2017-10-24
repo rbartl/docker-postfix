@@ -34,6 +34,8 @@ if [ "$RELAYUSER" ]; then
   postmap /etc/postfix/relay_password
 fi
 
+ln -sf /dev/log /var/spool/postfix/dev/
+
 # We have to start and stop postfix first through init.d to populate
 # postfix spool directory for chroot in which postfix is running.
 /etc/init.d/postfix start
