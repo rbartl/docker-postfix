@@ -22,6 +22,18 @@ if [ "$ROOT_ALIAS" ]; then
   newaliases
 fi
 
+if [ "$RELAYHOST" ]; then
+  postconf -e relayhost="$RELAYHOST"
+fi
+
+if [ "$RELAYUSER" ]; then
+  postconf -e smtp_sasl_password_maps="hash:/etc/postfix/relay_password"
+  postconf -e smtp_sasl_auth_enable="yes"
+  postconf -e smtp_sasl_security_options=""
+  echo "$RELAYHOST $RELAYUSER:$RELAYPASS" > /etc/postfix/relay_password
+  postmap /etc/postfix/relay_password
+fi
+
 # We have to start and stop postfix first through init.d to populate
 # postfix spool directory for chroot in which postfix is running.
 /etc/init.d/postfix start
